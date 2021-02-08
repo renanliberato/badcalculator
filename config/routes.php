@@ -33,6 +33,11 @@ use Psr\Container\ContainerInterface;
  * );
  */
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
-    $app->get('/', App\Handler\HomePageHandler::class, 'home');
+    $app->get('/badcalculator/', App\Handler\HomePageHandler::class, 'home');
+    $app->route('/badcalculator/', [
+        App\Middlewares\ThrottleMiddleware::class,
+        //App\Middlewares\CalculationErrorMiddleware::class,
+        App\Handler\CalculateActionHandler::class
+    ], ['POST'], 'calculate');
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
 };

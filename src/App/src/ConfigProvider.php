@@ -33,9 +33,12 @@ class ConfigProvider
         return [
             'invokables' => [
                 Handler\PingHandler::class => Handler\PingHandler::class,
+                Handler\CalculateActionHandler::class => Handler\CalculateActionHandler::class,
             ],
             'factories'  => [
                 Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
+                Middlewares\ThrottleMiddleware::class => Middlewares\ThrottleMiddleware::class,
+                App\Middlewares\CalculationErrorMiddleware::class => App\Middlewares\CalculationErrorMiddlewareFactory::class
             ],
         ];
     }

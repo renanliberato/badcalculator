@@ -23,6 +23,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // all Exceptions.
     $app->pipe(ErrorHandler::class);
     $app->pipe(ServerUrlMiddleware::class);
+    
+    $app->pipe(\Mezzio\Session\SessionMiddleware::class);
 
     // Pipe more middleware here that you want to execute on every request:
     // - bootstrapping

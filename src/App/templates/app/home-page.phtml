@@ -1,116 +1,61 @@
 <?php $this->layout('layout::default', ['title' => 'Home']) ?>
 
-<div class="jumbotron">
-    <h1>Welcome to <span class="mezzio-green">mezzio</span></h1>
-    <p>
-        Congratulations! You have successfully installed the
-        <a href="https://github.com/mezzio/mezzio-skeleton" target="_blank">mezzio skeleton application</a>.
-        This skeleton can serve as a simple starting point for you to begin building your application.
-    </p>
-    <p>
-        Mezzio builds on laminas-stratigility to provide a minimalist PSR-7 middleware framework for PHP.
-    </p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>
-            <a href="https://docs.mezzio.dev/mezzio/getting-started/features" target="_blank">
-                <i class="fa fa-bolt"></i> Agile &amp; Lean
-            </a>
-        </h2>
-        <p>
-            Mezzio is fast, small and perfect for rapid application development, prototyping and api's.
-            You decide how you extend it and choose the best packages from major framework or standalone projects.
-        </p>
-    </div>
-
-    <div class="col-md-4">
-        <h2>
-            <a href="https://github.com/laminas/laminas-diactoros" target="_blank">
-                <i class="fa fa-exchange-alt"></i> HTTP Messages
-            </a>
-        </h2>
-        <p>
-            HTTP messages are the foundation of web development. Web browsers and HTTP clients such as cURL create
-            HTTP request messages that are sent to a web server, which provides an HTTP response message.
-            Server-side code receives an HTTP request message, and returns an HTTP response message.
-        </p>
-    </div>
-
-    <div class="col-md-4">
-        <h2>
-            <a href="https://github.com/laminas/laminas-stratigility" target="_blank">
-                <i class="fa fa-dot-circle"></i> Middleware
-            </a>
-        </h2>
-        <p>
-            Middleware is code that exists between the request and response, and which can take the incoming
-            request, perform actions based on it, and either complete the response or pass delegation on to the
-            next middleware in the queue. Your application is easily extended with custom middleware created by
-            yourself or <a href="https://packagist.org/search/?q=middleware" target="_blank">others</a>.
-        </p>
+<div style="display: flex; flex-direction: column;align-items: center; width: 750px;">
+    <div style="position: relative;" id='app'>
+        <form method="POST">
+            <input placeholder='1+1' name="input" value='<?= $input ?>' />
+            <button style="width: 100px; margin-right: 0; margin-left: auto;">Calculate</button>
+        </form>
+        <div id='text-span-container'>
+            <?php if ($result): ?>
+                <p>I think it is... <?= $result ?>?</p>
+            <?php elseif ($sentNoValues): ?>
+                <p style="font-size: 13px;">C'mon, input something, I'm not a wizard.</p>
+            <?php elseif ($triedToEarly): ?>
+                <p style="font-size: 13px;">I'm tired! Wait <?= $triedToEarly ?> seconds.</p>
+            <?php else: ?>
+                <p>Give me a calculation!</p>
+            <?php endif; ?>
+        </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>
-            <a href="https://docs.mezzio.dev/mezzio/features/container/intro" target="_blank">
-                <i class="fa fa-cube"></i> Containers
-            </a>
-        </h2>
-        <p>
-            Mezzio promotes and advocates the usage of Dependency Injection/Inversion of Control containers
-            when writing your applications. Mezzio supports multiple containers which typehints against
-            <a href="https://github.com/php-fig/container" target="_blank">PSR Container</a>.
-        </p>
-        <?php if (isset($containerName)) : ?>
-            <p>
-                <a href="<?= $this->e($containerDocs) ?>" target="_blank">
-                    Get started with <?= $this->e($containerName) ?>.
-                </a>
-            </p>
-        <?php endif; ?>
-    </div>
+<?php $this->start('stylesheets') ?>
+<style>
+    #app {
+        width: 840px;
+        height: 440px;
+        background-image : url(/badcalculator/images/Seller_01_Animation_009.png);
+    }
 
-    <div class="col-md-4">
-        <h2>
-            <a href="https://docs.mezzio.dev/mezzio/features/router/intro" target="_blank">
-                <i class="fa fa-plane"></i> Routers
-            </a>
-        </h2>
-        <p>
-            One fundamental feature of mezzio is that it provides mechanisms for implementing dynamic
-            routing, a feature required in most modern web applications. Mezzio ships with multiple adapters.
-        </p>
-        <?php if (isset($routerName)) : ?>
-            <p>
-                <a href="<?= $this->e($routerDocs) ?>" target="_blank">
-                    Get started with <?= $this->e($routerName) ?>.
-                </a>
-            </p>
-        <?php endif; ?>
-    </div>
+    #text-span-container p {
+        margin-bottom: 0;
+        text-align: center;
+    }
+    #text-span-container {
+        position: absolute;
+        right: 280px;
+        top: 135px;
+        color: white;
+        height: 66px;
+        width: 114px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-    <div class="col-md-4">
-        <h2>
-            <a href="https://docs.mezzio.dev/mezzio/features/template/plates" target="_blank">
-                <i class="fa fa-edit"></i> Templating
-            </a>
-        </h2>
-        <p>
-            By default, no middleware in Mezzio is templated. We do not even provide a default templating
-            engine, as the choice of templating engine is often very specific to the project and/or organization.
-            However, Mezzio does provide abstraction for templating, which allows you to write middleware that
-            is engine-agnostic.
-        </p>
-        <?php if (isset($templateName)) : ?>
-            <p>
-                <a href="<?= $this->e($templateDocs) ?>" target="_blank">
-                    Get started with <?= $this->e($templateName) ?>.
-                </a>
-            </p>
-        <?php endif; ?>
-    </div>
-</div>
+    form {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 0px;
+        left: 120px;
+        width: 600px;
+        z-index: 999;
+        background-color: #2D1712dd;
+        padding-top: 20px;
+        border-radius: 10px;
+        padding: 20px;
+    }
+</style>
+<?php $this->stop() ?>
